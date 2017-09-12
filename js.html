@@ -1,0 +1,124 @@
+<meta charset="utf-8">
+<script>
+	var string = prompt('Введите выражение');
+	var arr = string.split(' ');
+	var result = 0, start = 0, index = 1;
+	var flag = false, firstLoop = true;
+
+	if (isNaN(Number(arr[0]))) {
+		//первые операторы
+		for (var i = 0; i < arr.length; i++) {
+			if (!isNaN(arr[i])) {
+				start = i;
+				flag = true;
+				break;
+			}
+		}
+	}
+	else {
+		//первые операнды
+		for (var i = arr.length - 1; i >= 0; i--) {
+			if (!isNaN(arr[i])) {
+				start = i;
+				break;
+			}
+		}
+	}
+	while (arr[start] != undefined) {
+		arr[start] = parseInt(arr[start]);
+		if (flag) {
+			if (firstLoop) {
+				arr[start + 1] = parseInt(arr[start + 1]);
+				switch (arr[start + index]) {
+					case '+': 
+						result = arr[start] + arr[start + 1];
+						break;
+					case '-': 
+						result = arr[start] - arr[start + 1];
+						break;
+					case '*': 
+						result = arr[start] * arr[start + 1];
+						break;
+					case '/': 
+						result = arr[start] / arr[start + 1];
+						break;
+					default:
+						break;
+				}
+				arr.splice(start, 2);
+				firstLoop = false;
+			}
+			else {
+				switch(arr[start + 1]) {
+					case '+': 
+						result += arr[start];
+						break;
+					case '-': 
+						result -= arr[start];
+						break;
+					case '*': 
+						result *= arr[start];
+						break;
+					case '/': 
+						result /= arr[start];
+						break;
+					default: 
+						break;
+				}
+				arr.splice(start, 1);
+			}
+			firstLoop = false;
+		}
+		else {
+			if (firstLoop) {
+				arr[start - 1] = parseInt(arr[start - 1]);
+				switch (arr[start + index]) {
+					case '+':
+						result = arr[start] + arr[start - 1];
+						break;
+					case '-':
+						result = arr[start] - arr[start - 1];
+						break;
+					case '*':
+						result = arr[start] * arr[start - 1];
+						break;
+					case '/':
+						result = arr[start] / arr[start - 1];
+						break;
+					default:
+						break;
+				}
+				arr.splice(start - 1, 2);
+				start -= 2;
+				firstLoop = false;
+			}
+			else {
+				switch(arr[start + index]) {
+					case '+':
+						result += arr[start];
+						break;
+					case '-':
+						result -= arr[start];
+						break;
+					case '*':
+						result *= arr[start];
+						break;
+					case '/':
+						result /= arr[start];
+						break;
+					default:
+						break;
+				}
+				if (start >= 1) {
+					arr.splice(start, 1);
+					start -= 1;
+				}
+				else {
+					break;
+				}
+			}
+		}
+		index++;
+	}
+	console.log('result ' + result);
+</script>
