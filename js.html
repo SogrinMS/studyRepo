@@ -28,14 +28,20 @@
 	while (arr[start] != undefined) {
 		if (flag) {
 			result = firstOperators(arr, start, index, result, firstLoop);
+			if (isNaN(Number(arr[start]))) {
+				break;
+			}
 		}
 		else {
 			result = firstOperands(arr, start, index, result, firstLoop);
 			if (firstLoop) {
 				start -= 2;
 			}
-			else if (start >= 1 && !firstLoop) {
+			else {
 				start -= 1;
+			}
+			if (isNaN(Number(arr[start]))) {
+				break;
 			}
 		}
 		firstLoop = false;
@@ -45,90 +51,47 @@
 
 	function firstOperators(arr, start, index, result, firstLoop) {
 		arr[start] = parseInt(arr[start]);
-		if (firstLoop) {
-			arr[start + 1] = parseInt(arr[start + 1]);
-			switch (arr[start - index]) {
-				case '+':
-					result = arr[start] + arr[start + 1];
-					break;
-				case '-':
-					result = arr[start] - arr[start + 1];
-					break;
-				case '*':
-					result = arr[start] * arr[start + 1];
-					break;
-				case '/': 
-					result = arr[start] / arr[start + 1];
-					break;
-				default:
-					break;
-			}
-			arr.splice(start, 2);
+		(firstLoop) ? arr[start + 1] = parseInt(arr[start + 1]) : '';
+		switch (arr[start - index]) {
+			case '+':
+				result += (firstLoop) ? arr[start] + arr[start + 1] : arr[start];
+				break;
+			case '-':
+				result -= (firstLoop) ? arr[start] - arr[start + 1] : arr[start];
+				break;
+			case '*':
+				result *= (firstLoop) ? arr[start] * arr[start + 1] : arr[start];
+				break;
+			case '/': 
+				result /= (firstLoop) ? arr[start] / arr[start + 1] : arr[start];
+				break;
+			default:
+				break;
 		}
-		else {
-			switch(arr[start - index]) {
-				case '+': 
-					result += arr[start];
-					break;
-				case '-':
-					result -= arr[start];
-					break;
-				case '*': 
-					result *= arr[start];
-					break;
-				case '/':
-					result /= arr[start];
-					break;
-				default:
-					break;
-			}
-			arr.splice(start, 1);
-		}
+		(firstLoop) ? arr.splice(start, 2) : arr.splice(start, 1);
 		return result;
 	}
 
 	function firstOperands(arr, start, index, result, firstLoop) {
 		arr[start] = parseInt(arr[start]);
-		if (firstLoop) {
-			arr[start - 1] = parseInt(arr[start - 1]);
-			switch (arr[start + index]) {
-				case '+':
-					result = arr[start] + arr[start - 1];
-					break;
-				case '-':
-					result = arr[start] - arr[start - 1];
-					break;
-				case '*':
-					result = arr[start] * arr[start - 1];
-					break;
-				case '/':
-					result = arr[start] / arr[start - 1];
-					break;
-				default:
-					break;
-			}
-			arr.splice(start - 1, 2);
-			
+		(firstLoop) ? arr[start - 1] = parseInt(arr[start - 1]) : '';
+		switch (arr[start + index]) {
+			case '+':
+				result += (firstLoop) ? arr[start] + arr[start - 1] : arr[start];
+				break;
+			case '-':
+				result -= (firstLoop) ? arr[start] - arr[start - 1] : arr[start];
+				break;
+			case '*':
+				result *= (firstLoop) ? arr[start] * arr[start - 1] : arr[start];
+				break;
+			case '/':
+				result /= (firstLoop) ? arr[start] / arr[start - 1] : arr[start];
+				break;
+			default:
+				break;
 		}
-		else {
-			switch(arr[start + index]) {
-				case '+':
-					result += arr[start];
-					break;
-				case '-':
-					result -= arr[start];
-					break;
-				case '*':
-					result *= arr[start];
-					break;
-				case '/':
-					result /= arr[start];
-					break;
-				default:
-					break;
-			}
-			arr.splice(start, 1);
-		}
+		(firstLoop) ? arr.splice(start - 1, 2) : arr.splice(start, 1);
 		return result;
 	}
 </script>
