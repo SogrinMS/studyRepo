@@ -91,16 +91,16 @@
 			(firstLoop) ? arr[start + 1] = parseInt(arr[start + 1]) : '';
 			switch (arr[start - index]) {
 				case '+':
-					result += (firstLoop) ? arr[start] + arr[start + 1] : arr[start];
+					(firstLoop) ? result = arr[start] + arr[start + 1] : result += arr[start];
 					break;
 				case '-':
-					result -= (firstLoop) ? arr[start] - arr[start + 1] : arr[start];
+					(firstLoop) ? result = arr[start] - arr[start + 1] : result -= arr[start];
 					break;
 				case '*':
-					result *= (firstLoop) ? arr[start] * arr[start + 1] : arr[start];
+					(firstLoop) ? result = arr[start] * arr[start + 1] : result *= arr[start];
 					break;
 				case '/': 
-					result /= (firstLoop) ? arr[start] / arr[start + 1] : arr[start];
+					(firstLoop) ? result = arr[start] / arr[start + 1] : result /= arr[start];
 					break;
 				default:
 					break;
@@ -121,16 +121,16 @@
 			(firstLoop) ? arr[start - 1] = parseInt(arr[start - 1]) : '';
 			switch (arr[start + index]) {
 				case '+':
-					result += (firstLoop) ? arr[start] + arr[start - 1] : arr[start];
+					(firstLoop) ? result = arr[start] + arr[start - 1] : result += arr[start];
 					break;
 				case '-':
-					result -= (firstLoop) ? arr[start] - arr[start - 1] : arr[start];
+					(firstLoop) ? result = arr[start] - arr[start - 1] : result -= arr[start];
 					break;
 				case '*':
-					result *= (firstLoop) ? arr[start] * arr[start - 1] : arr[start];
+					(firstLoop) ? result = arr[start] * arr[start - 1] : result *= arr[start];
 					break;
 				case '/':
-					result /= (firstLoop) ? arr[start] / arr[start - 1] : arr[start];
+					(firstLoop) ? result = arr[start] / arr[start - 1] : result /= arr[start];
 					break;
 				default:
 					break;
