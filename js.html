@@ -12,11 +12,12 @@
 	</div>
 	<script>
 		var string = prompt('Введите выражение через пробел');
+		corrrectInput(string, /[a-zA-Zа-яА-ЯёЁ]+/);
 		var arr = string.split(' ');
 		var result = 0, start = 0, index = 1;
 		var flag = false, firstLoop = true;
 		var helperVisJsArray = new Array();
-		corrrectInput(/[a-zA-Zа-яА-ЯёЁ]+/);
+		
 		
 		if (isNaN(Number(arr[0]))) {
 			//первые операторы
@@ -141,10 +142,13 @@
 			}
 			return result;
 		}
-		function corrrectInput(rule) {
+		function corrrectInput(string, rule) {
 			if (string.match(rule)) {
 				alert('Введены некоректные данные');
 				window.location.reload();
+			}
+			else {
+				return;
 			}
 		}
 	</script>
