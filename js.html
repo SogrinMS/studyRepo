@@ -16,7 +16,8 @@
 		var result = 0, start = 0, index = 1;
 		var flag = false, firstLoop = true;
 		var helperVisJsArray = new Array();
-
+		corrrectInput(/[a-zA-Zа-яА-ЯёЁ]+/);
+		
 		if (isNaN(Number(arr[0]))) {
 			//первые операторы
 			for (var i = 0; i < arr.length; i++) {
@@ -139,6 +140,12 @@
 				arr.splice(start, 1)
 			}
 			return result;
+		}
+		function corrrectInput(rule) {
+			if (string.match(rule)) {
+				alert('Введены некоректные данные');
+				window.location.reload();
+			}
 		}
 	</script>
 </body>
