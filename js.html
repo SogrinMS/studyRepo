@@ -6,7 +6,7 @@
 	<link rel="stylesheet" href="vis.min.css">
 	<title></title>
 	<style>
-		input:focus {
+		input:focus, button:focus {
 			outline: none;
 		}
 		.container {
@@ -45,20 +45,17 @@
 <body>
 	<div class="container">
 		<h2>Введите постфиксную или инфиксную нотацию:</h2>
-		<form action="" class="form">
+		<form class="form">
 			<input type="text" class="form__input">
-			<input type="submit" id="button" class="form__submit">
+			<button type="submit" class="form__submit" id="submit"> Полетели! </button>
 		</form>
 	</div>
-	<div id="or-graph">
-
-	</div>
+	<div id="or-graph"></div>
 	<script>
-		var button = document.getElementById('button');
+		var button = document.getElementById('submit');
 		button.onclick = function () {
-			var input = document.getElementsByTagName('input')[0];	
+			var input = document.getElementsByTagName('input')[0];
 			var string = input.value;
-		
 			corrrectInput(string, /[a-zA-Zа-яА-ЯёЁ]+/);
 			
 			var arr = string.split(' ');
@@ -190,9 +187,9 @@
 			return result;
 		}
 		function corrrectInput(string, rule) {
-			if (string.match(rule)) {
-				alert('Введены некоректные данные');
-				window.location.reload();
+			if (string.match(rule) || string.length === 0) {
+				alert('Введены некоректные данные или пустое значение');
+				throw new Error("stop");
 			}
 			else {
 				return;
