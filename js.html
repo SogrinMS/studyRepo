@@ -18,12 +18,7 @@
 			min-width: 1024px;
 			height: 75vh;
 		}
-		.form {
-			display: flex;
-			align-items: center;
-			flex-direction: column;
-		}
-		.form__input {
+		.container__input {
 			background: rgba(220,220,220, 0.7);
 			height: 20px;
 			font-size: 17px;
@@ -32,7 +27,7 @@
 			margin-bottom: 10px;
 			padding: 4px 8px;
 		}
-		.form__submit {
+		.container__submit {
 			width: 80px;
 			border-radius: 12px;
 			border: none;
@@ -45,10 +40,8 @@
 <body>
 	<div class="container">
 		<h2>Введите постфиксную или инфиксную нотацию:</h2>
-		<form class="form">
-			<input type="text" class="form__input">
-			<button type="submit" class="form__submit" id="submit"> Полетели! </button>
-		</form>
+			<input type="text" class="container__input">
+			<button type="submit" class="container__submit" id="submit"> Полетели! </button>
 	</div>
 	<div id="or-graph"></div>
 	<script>
@@ -57,7 +50,6 @@
 			var input = document.getElementsByTagName('input')[0];
 			var string = input.value;
 			corrrectInput(string, /[a-zA-Zа-яА-ЯёЁ]+/);
-			
 			var arr = string.split(' ');
 			var result = 0, start = 0, index = 1;
 			var flag = false, firstLoop = true;
@@ -82,7 +74,6 @@
 					}
 				}
 			}
-
 			while (arr[start] != undefined) {
 				if (flag) {
 					result = firstOperators(arr, start, index, result, firstLoop, helperVisJsArray);
@@ -105,7 +96,6 @@
 				firstLoop = false;
 				index++;
 			}
-
 			// визуализация
 			var nodes = new vis.DataSet();
 			var edges = new vis.DataSet();
@@ -156,7 +146,6 @@
 			}
 			return result;
 		}
-
 		function firstOperands(arr, start, index, result, firstLoop, helperVisJsArray) {
 			arr[start] = parseInt(arr[start]);
 			(firstLoop) ? arr[start - 1] = parseInt(arr[start - 1]) : '';
