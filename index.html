@@ -49,7 +49,7 @@
 		button.onclick = function () {
 			var input = document.getElementsByTagName('input')[0];
 			var string = input.value;
-			//corrrectInput(string, /[a-zA-Zа-яА-ЯёЁ]+/);
+			corrrectInput(string, /[a-zA-Zа-яА-ЯёЁ]+/);
 			var arr = string.split(' ');
 			var stack = new Array();
 			var helperVisJsArray = new Array();
@@ -94,13 +94,10 @@
 						alert('Введены некорректные данные!');
 					}
 				}
-
 			}
 			helperVisJsArray.push(stack.pop());
-			// визуализация
 			var nodes = new vis.DataSet();
 			var edges = new vis.DataSet();
-
 			for (var i = 0; i < helperVisJsArray.length; i++) {
 				nodes.add({id: i, label: helperVisJsArray[i]});
 			}
@@ -127,7 +124,7 @@
 					return;
 				}
 			}
-	}
+		}
 	</script>
 </body>
 </html>
