@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		th, td {
+			border-bottom: 1px solid black;
+			border-spacing: 0px;
+		}
+	</style>
+</head>
+<body>
+	<table id="table" style="border: 1px solid black; text-align: center; ">
+		<th>Время</th>
+		<th>Температура</th>
+		<th>Влажность</th>
+	</table>
+	<div>
+		<h3>Средняя температура</h3>
+		<p id="temperature"></p>
+	</div>
+	<div>
+		<h3>Средняя влажность</h3>
+		<p id="humidity"></p>
+	</div>
+	<script>
+	var ws = new WebSocket('wss://roboforge.ru/wsdata');
+	ws.onopen = function () {
+		console.log('connection available');
+	}
+	var quantity = [];
+	var averageTemp = [];
+	var averageHum = [];
+	ws.onmessage = function (event) {
+		var data = JSON.parse(event.data);
+		var time = new Date(data.utime * 1e3);
+		var str = time.getHours() + ':' + time.getMinutes() + ':' + time.getSeconds();
+		var msg = [str, data.temperature, data.humidity];
+		var table = document.getElementById('table');
+		var row = document.createElement('tr');
+		quantity.push(row);
+		for (var i = 0; i < msg.length; i++) {
+			var column = document.createElement('td');
+			column.innerHTML = (typeof(msg[i]) == 'string') ? msg[i] : Math.round(msg[i]);
+			row.appendChild(column);
+		}
+		table.appendChild(row);
+		averageTemp.push(quantity[0].cells[1].innerText);
+		averageHum.push(quantity[0].cells[2].innerText);
+		if (quantity.length > 10) {
+			var sumTemp = 0;
+			var sumHum = 0;
+			table.removeChild(quantity.shift());
+			averageTemp.shift();
+			averageHum.shift();
+			for (var i = 0; i < averageTemp.length; i++) {
+				sumTemp += Number(averageTemp[i]);
+				sumHum += Number(averageHum[i]);
+			}
+			var temp = sumTemp / Number(averageTemp.length);
+			var humidity = sumHum / Number(averageHum.length);
+			document.getElementById('temperature').innerHTML = temp;
+			document.getElementById('humidity').innerHTML = humidity;
+		}
+	}
+	</script>
+</body>
+</html>
